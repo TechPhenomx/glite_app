@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.glite">
 
-    <!-- ✅ Device features -->
+    <!-- ✅ Device features (optional) -->
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
@@ -22,12 +22,12 @@
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <!-- Protected permission (Audio capture from call) -->
+    <!-- Protected permission (call audio capture) -->
     <uses-permission
         android:name="android.permission.CAPTURE_AUDIO_OUTPUT"
         tools:ignore="ProtectedPermissions" />
 
-    <!-- ✅ Foreground service specific permissions (Android 13+) -->
+    <!-- ✅ Foreground service permissions (Android 13+) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
     <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
@@ -38,13 +38,12 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <!-- Android 11+ All Files Access -->
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
-    <!-- ✅ Intent queries for package visibility -->
+    <!-- ✅ Package visibility queries -->
     <queries>
         <intent>
             <action android:name="android.intent.action.DIAL" />
@@ -62,14 +61,13 @@
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
-        tools:targetApi="n">
+        tools:targetApi="33">
 
-        <!-- ✅ Main activity -->
+        <!-- ✅ Main Activity -->
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:exported="true"
-            android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
@@ -83,12 +81,12 @@
             </intent-filter>
         </activity>
 
-        <!-- ✅ Flutter metadata -->
+        <!-- ✅ Flutter embedding v2 -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <!-- ✅ Phone state receiver -->
+        <!-- ✅ Phone state background receiver -->
         <receiver
             android:name="me.sodipto.phone_state_background.PhoneStateBackgroundServiceReceiver"
             android:exported="false">
@@ -102,11 +100,11 @@
             android:name=".CallRecordService"
             android:exported="false"
             android:foregroundServiceType="microphone|phoneCall">
-            <!-- Allow app to start service via explicit intent -->
             <intent-filter>
                 <action android:name="com.example.glite.START_RECORDING" />
                 <action android:name="com.example.glite.STOP_RECORDING" />
             </intent-filter>
         </service>
+
     </application>
 </manifest>
