@@ -77,7 +77,7 @@ class StoragePermissionManager {
 
         // Android ka path usually /storage/emulated/0/Android/data/package/files
         // Public folder create karne ke liye root external storage pe jana hai:
-        // Eg: /storage/emulated/0/glite
+
         final paths = baseDir.path.split("/");
         // Remove Android/data/... part to get root external storage
         int androidIndex = paths.indexOf("Android");
